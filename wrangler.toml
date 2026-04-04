@@ -1,0 +1,9 @@
+name = "content-explorer"
+main = "workers-site"  # placeholder; Next adapter will override
+compatibility_date = "2026-04-03"
+
+[build]
+command = "npm run build"
+cwd = "."
+[build.upload]
+format = "service-worker"
