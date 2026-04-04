@@ -97,13 +97,13 @@ async function ProductDetailBody({ id }: { id: number }) {
 function ProductDetailFallback() {
   return (
     <div className="space-y-8" aria-busy>
-      <div className="h-4 w-56 animate-pulse rounded bg-neutral-200" />
+      <div className="h-4 w-56 rounded bg-neutral-200" />
       <div className="grid gap-10 lg:grid-cols-2">
-        <div className="aspect-square max-w-lg animate-pulse rounded-2xl bg-neutral-200" />
+        <div className="aspect-square max-w-lg rounded-2xl bg-neutral-200" />
         <div className="space-y-4">
-          <div className="h-10 w-4/5 animate-pulse rounded-lg bg-neutral-200" />
-          <div className="h-6 w-28 animate-pulse rounded bg-neutral-200" />
-          <div className="h-24 w-full animate-pulse rounded bg-neutral-200" />
+          <div className="h-10 w-4/5 rounded-lg bg-neutral-200" />
+          <div className="h-6 w-28 rounded bg-neutral-200" />
+          <div className="h-24 w-full rounded bg-neutral-200" />
         </div>
       </div>
     </div>

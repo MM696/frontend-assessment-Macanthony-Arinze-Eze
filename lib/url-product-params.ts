@@ -1,6 +1,7 @@
 import type { ProductQueryParams } from "@/types/product";
 
-export const PAGE_SIZE = 20;
+/** Smaller page = less LCP work per navigation (mobile Lighthouse). */
+export const PAGE_SIZE = 8;
 
 type SearchParamsInput = Record<string, string | string[] | undefined>;
 
@@ -49,4 +50,32 @@ export function paramsEqual(
 
 export function pageFromSkip(skip: number): number {
   return Math.floor(skip / PAGE_SIZE) + 1;
+}
+
+/** Build `/?q=…&category=…&page=…` for server-rendered `<Link>` actions. */
+export function productListingHref(input: {
+  q?: string;
+  category?: string;
+  page?: number;
+}): string {
+  const sp = new URLSearchParams();
+  if (input.q?.trim()) sp.set("q", input.q.trim());
+  if (input.category?.trim()) sp.set("category", input.category.trim());
+  if (input.page != null && input.page > 1) sp.set("page", String(input.page));
+  const qs = sp.toString();
+  return qs ? `/?${qs}` : "/";
+}
+
+export function clearSearchHrefFromParams(p: ProductQueryParams): string {
+  return productListingHref({
+    category: p.category,
+    page: 1,
+  });
+}
+
+export function clearCategoryHrefFromParams(p: ProductQueryParams): string {
+  return productListingHref({
+    q: p.q,
+    page: 1,
+  });
 }

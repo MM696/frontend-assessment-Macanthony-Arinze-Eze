@@ -4,6 +4,8 @@ import {
   pageFromSkip,
   paramsEqual,
   parseProductSearchParams,
+  productListingHref,
+  clearSearchHrefFromParams,
 } from "@/lib/url-product-params";
 
 describe("parseProductSearchParams", () => {
@@ -42,18 +44,45 @@ describe("parseProductSearchParams", () => {
 
 describe("paramsEqual", () => {
   it("returns true for equivalent params", () => {
-    const a = { limit: 20, skip: 0, q: "x" };
-    const b = { limit: 20, skip: 0, q: "x" };
+    const a = { limit: PAGE_SIZE, skip: 0, q: "x" };
+    const b = { limit: PAGE_SIZE, skip: 0, q: "x" };
     expect(paramsEqual(a, b)).toBe(true);
   });
 
   it("returns false when q differs", () => {
     expect(
       paramsEqual(
-        { limit: 20, skip: 0, q: "a" },
-        { limit: 20, skip: 0, q: "b" }
+        { limit: PAGE_SIZE, skip: 0, q: "a" },
+        { limit: PAGE_SIZE, skip: 0, q: "b" }
       )
     ).toBe(false);
+  });
+});
+
+describe("productListingHref", () => {
+  it("builds root with query string", () => {
+    expect(productListingHref({ q: "phone", page: 2 })).toBe(
+      "/?q=phone&page=2"
+    );
+  });
+
+  it("omits page when 1", () => {
+    expect(productListingHref({ category: "beauty", page: 1 })).toBe(
+      "/?category=beauty"
+    );
+  });
+});
+
+describe("clearSearchHrefFromParams", () => {
+  it("keeps category and drops q", () => {
+    expect(
+      clearSearchHrefFromParams({
+        limit: PAGE_SIZE,
+        skip: 0,
+        q: "x",
+        category: "c",
+      })
+    ).toBe("/?category=c");
   });
 });
 

@@ -20,6 +20,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:border-neutral-300 hover:shadow-md">
       <Link
         href={`/products/${product.id}`}
+        prefetch={false}
         className="flex flex-1 flex-col outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-neutral-900"
       >
         <div className="relative aspect-square w-full bg-neutral-100">
@@ -28,7 +29,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             alt={product.title}
             width={400}
             height={400}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             className="h-full w-full object-cover transition group-hover:scale-[1.02]"
             priority={priority}
             onError={() => setImgSrc(PRODUCT_IMAGE_PLACEHOLDER)}

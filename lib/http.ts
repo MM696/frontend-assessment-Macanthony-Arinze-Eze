@@ -2,8 +2,7 @@ export const DUMMYJSON_BASE = "https://dummyjson.com";
 
 /**
  * Next.js extends `fetch` on the server with `cache` / `next.revalidate`.
- * In the browser those options are ignored; listing hydration uses TanStack
- * Query (`useProducts`) for client-side refetch behavior.
+ * Listing data is fetched in server components; client navigations re-run RSC.
  */
 export function serverCacheInit(options: {
   revalidate?: number;
