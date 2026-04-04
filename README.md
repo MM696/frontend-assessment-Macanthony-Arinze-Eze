@@ -52,7 +52,7 @@ For local development, run `npm install` then `npm run dev` and open [http://loc
 
 ## Deployment
 
-- **Cloudflare**: Use [ `@cloudflare/next-on-pages` ](https://github.com/cloudflare/next-on-pages) or Workers equivalents so dynamic routes and `fetch` caching behave as expected. Static assets and images benefit from Cloudflare’s edge cache; ISR/revalidate semantics depend on the adapter—validate in staging.
+- **Cloudflare Workers**: Build with OpenNext (`npm run cf:build`) and deploy with Wrangler (`npm run deploy`). Use `wrangler.toml` with `nodejs_compat`, `[assets]` → `.open-next/assets`, and `WORKER_SELF_REFERENCE`. On Windows, prefer WSL if builds fail; avoid legacy `@cloudflare/next-on-pages` (it spawns `npx` in a way that often breaks on Windows).
 
 ---
 

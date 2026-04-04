@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { PRODUCT_IMAGE_PLACEHOLDER } from "@/lib/image-placeholder";
 import type { Product } from "@/types/product";
 
@@ -11,10 +8,9 @@ export type ProductCardProps = {
   priority?: boolean;
 };
 
+/** Server component: avoids N separate client hydration roots on the listing grid. */
 export function ProductCard({ product, priority = false }: ProductCardProps) {
-  const [imgSrc, setImgSrc] = useState(
-    product.thumbnail || PRODUCT_IMAGE_PLACEHOLDER
-  );
+  const src = product.thumbnail?.trim() || PRODUCT_IMAGE_PLACEHOLDER;
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition hover:border-neutral-300 hover:shadow-md">
@@ -25,14 +21,13 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       >
         <div className="relative aspect-square w-full bg-neutral-100">
           <Image
-            src={imgSrc}
+            src={src}
             alt={product.title}
             width={400}
             height={400}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             className="h-full w-full object-cover transition group-hover:scale-[1.02]"
             priority={priority}
-            onError={() => setImgSrc(PRODUCT_IMAGE_PLACEHOLDER)}
           />
         </div>
         <div className="flex flex-1 flex-col gap-1 p-4">

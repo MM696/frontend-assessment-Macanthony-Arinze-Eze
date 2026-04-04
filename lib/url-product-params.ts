@@ -1,7 +1,7 @@
 import type { ProductQueryParams } from "@/types/product";
 
-/** Smaller page = less LCP work per navigation (mobile Lighthouse). */
-export const PAGE_SIZE = 8;
+/** Smaller page = less DOM + decode work per navigation (mobile Lighthouse). */
+export const PAGE_SIZE = 6;
 
 type SearchParamsInput = Record<string, string | string[] | undefined>;
 
