@@ -5,12 +5,13 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { ProductDetailImage } from "@/components/ProductDetailImage";
 import { getProductById } from "@/lib/product-detail";
 
-type PageProps = { params: { id: string } };
+type PageProps = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const id = Number(params.id);
+  const { id: idParam } = await params;
+  const id = Number(idParam);
   if (!Number.isFinite(id)) {
     return { title: "Product" };
   }
@@ -109,8 +110,9 @@ function ProductDetailFallback() {
   );
 }
 
-export default function ProductPage({ params }: PageProps) {
-  const id = Number(params.id);
+export default async function ProductPage({ params }: PageProps) {
+  const { id: idParam } = await params;
+  const id = Number(idParam);
   if (!Number.isFinite(id)) {
     notFound();
   }

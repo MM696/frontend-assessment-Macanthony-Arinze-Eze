@@ -1,9 +1,15 @@
+# OpenNext Cloudflare — static files (CSS/JS) live under .open-next/assets
+# https://opennext.js.org/cloudflare/get-started
 name = "content-explorer"
-main = "workers-site"  # placeholder; Next adapter will override
-compatibility_date = "2026-04-03"
+main = ".open-next/worker.js"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
-[build]
-command = "npm run build"
-cwd = "."
-[build.upload]
-format = "service-worker"
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# Required for OpenNext cache / self-fetch; name must match [[services]].service
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "content-explorer"

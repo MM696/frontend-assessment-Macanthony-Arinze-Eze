@@ -41,15 +41,16 @@ async function ProductListing({
   );
 }
 
-export default function HomePage({
+export default async function HomePage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const resolvedSearchParams = await searchParams;
   return (
     <main>
       <Suspense fallback={<ListingFallback />}>
-        <ProductListing searchParams={searchParams} />
+        <ProductListing searchParams={resolvedSearchParams} />
       </Suspense>
     </main>
   );
